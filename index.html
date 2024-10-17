@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day Counter</title>
+    <script>
+        function calculateDay() {
+            const startDate = new Date('2024-08-29');
+            const endDate = new Date('2025-06-16');
+            const currentDate = new Date();
+            
+            if (currentDate < startDate || currentDate > endDate) {
+                document.getElementById('day-info').innerText = "";
+            } else {
+                const oneDay = 24 * 60 * 60 * 1000;
+                const dayDifference = Math.round((currentDate - startDate) / oneDay) + 1;
+                document.getElementById('day-info').innerText = `Day ${dayDifference} out of 182`;
+            }
+        }
+
+        setInterval(calculateDay, 1000 * 60 * 60 * 24); // Update every day
+    </script>
+    <style>
+        #day-info {
+            color: #007dc3;
+            font-size: 10vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body onload="calculateDay()">
+    <div id="day-info"></div>
+</body>
+</html>
