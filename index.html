@@ -10,12 +10,35 @@
             const endDate = new Date('2025-06-16');
             const currentDate = new Date();
             
+            const noSchoolDays = [
+                '2024-09-02', '2024-09-25', '2024-10-14', '2024-10-23', '2024-11-05', '2024-11-11',
+                '2024-11-28', '2024-11-29', '2024-12-20', '2024-12-23', '2024-12-24', '2024-12-25',
+                '2024-12-26', '2024-12-27', '2024-12-30', '2024-12-31', '2025-01-01', '2025-01-20',
+                '2025-02-12', '2025-02-17', '2025-03-28', '2025-04-11', '2025-04-14', '2025-04-15',
+                '2025-04-16', '2025-04-17', '2025-04-18', '2025-05-26'
+            ];
+
+            function isSchoolDay(date) {
+                const dayOfWeek = date.getDay();
+                const formattedDate = date.toISOString().split('T')[0];
+                // Exclude weekends and no school days
+                return dayOfWeek !== 0 && dayOfWeek !== 6 && !noSchoolDays.includes(formattedDate);
+            }
+
             if (currentDate < startDate || currentDate > endDate) {
                 document.getElementById('day-info').innerText = "";
             } else {
-                const oneDay = 24 * 60 * 60 * 1000;
-                const dayDifference = Math.round((currentDate - startDate) / oneDay) + 1;
-                document.getElementById('day-info').innerText = `Day ${dayDifference} out of 182`;
+                let schoolDayCount = 0;
+                let tempDate = new Date(startDate);
+
+                while (tempDate <= currentDate) {
+                    if (isSchoolDay(tempDate)) {
+                        schoolDayCount++;
+                    }
+                    tempDate.setDate(tempDate.getDate() + 1);
+                }
+
+                document.getElementById('day-info').innerText = `Day ${schoolDayCount} out of 182`;
             }
         }
 
