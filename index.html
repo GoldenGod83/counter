@@ -26,7 +26,7 @@
             }
 
             if (currentDate < startDate || currentDate > endDate) {
-                document.getElementById('day-info').innerText = "";
+                document.getElementById('day-info').innerText = "Out of school period";
             } else {
                 let schoolDayCount = 0;
                 let tempDate = new Date(startDate);
